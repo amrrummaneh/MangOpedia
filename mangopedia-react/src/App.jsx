@@ -1,8 +1,9 @@
 import AppRoutes from "./routes/AppRouter";
+import Header from "./components/layout/Header";
 function App() {
   return (
     <>
-      <div>Hello</div>
+      <Header />
       <AppRoutes />
     </>
   );
