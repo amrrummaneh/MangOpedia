@@ -1,8 +1,13 @@
 import MenuItemTable from "../../components/menuitem/MenuItemTable";
 import MenuItemModal from "../../components/menuitem/MenuItemModal";
 import { useGetMenuItemsQuery } from "../../store/api/menuItemsApi";
+import { useState } from "react";
 
 function MenuManagement() {
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   const {
     data: menuItems = [],
     isLoading,
@@ -21,7 +26,10 @@ function MenuManagement() {
                 Manage your restaurant's menu items
               </p>
             </div>
-            <button className="btn btn-primary">
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowModal(true)}
+            >
               <i className="bi bi-plus-circle me-2"></i>
               Add Menu Item
             </button>
@@ -41,7 +49,7 @@ function MenuManagement() {
           </div>
         </div>
       </div>
-      <MenuItemModal />
+      {showModal && <MenuItemModal />}
     </div>
   );
 }
