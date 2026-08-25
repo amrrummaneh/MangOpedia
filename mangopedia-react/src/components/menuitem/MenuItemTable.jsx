@@ -71,7 +71,7 @@ function MenuItemTable({ menuItems, isLoading, error }) {
                   <span className="badge bg-secondary">{item.category}</span>
                 </td>
                 <td>
-                  <strong>$$</strong>
+                  <strong>${item.price.toFixed(2)}</strong>
                 </td>
                 <td>
                   <span className="badge bg-warning text-dark">
