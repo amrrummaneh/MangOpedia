@@ -8,7 +8,7 @@ function MenuManagement() {
     error,
     refetch,
   } = useGetMenuItemsQuery();
-  console.log(menuItems);
+
   return (
     <div className="container-fluid p-4 mx-3">
       <div className="row mb-4">
