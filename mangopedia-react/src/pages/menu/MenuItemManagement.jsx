@@ -8,7 +8,6 @@ function MenuManagement() {
     error,
     refetch,
   } = useGetMenuItemsQuery();
-
   console.log(menuItems);
   return (
     <div className="container-fluid p-4 mx-3">
@@ -32,7 +31,11 @@ function MenuManagement() {
         <div className="col">
           <div className="card">
             <div className="card-body">
-              <MenuItemTable />
+              <MenuItemTable
+                menuItems={menuItems}
+                isLoading={isLoading}
+                error={error}
+              />
             </div>
           </div>
         </div>
