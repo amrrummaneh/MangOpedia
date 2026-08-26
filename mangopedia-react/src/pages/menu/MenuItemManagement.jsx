@@ -25,6 +25,7 @@ function MenuManagement() {
   const [createMenuItem] = useCreateMenuItemMutation();
   const [updateMenuItem] = useUpdateMenuItemMutation();
   const [deleteMenuItem] = useDeleteMenuItemMutation();
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -85,6 +86,17 @@ function MenuManagement() {
     }
   };
 
+  const handleAddMenuItem = async () => {
+    resetForm();
+    setSelectedMenuItem(null);
+    setShowModal(true);
+  };
+  const handleEditMenuItem = async (item) => {
+    setSelectedMenuItem(item);
+
+    setShowModal(true);
+  };
+
   const handleDeleteMenuItem = async (item) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -118,10 +130,7 @@ function MenuManagement() {
                 Manage your restaurant's menu items
               </p>
             </div>
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowModal(true)}
-            >
+            <button className="btn btn-primary" onClick={handleAddMenuItem}>
               <i className="bi bi-plus-circle me-2"></i>
               Add Menu Item
             </button>
@@ -137,6 +146,7 @@ function MenuManagement() {
                 isLoading={isLoading}
                 error={error}
                 onDelete={handleDeleteMenuItem}
+                onEdit={handleEditMenuItem}
               />
             </div>
           </div>
