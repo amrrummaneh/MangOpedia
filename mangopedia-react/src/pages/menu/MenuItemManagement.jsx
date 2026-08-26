@@ -19,8 +19,12 @@ function MenuManagement() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setFormData((prev) => ({ ...prev, [name]: files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const [formData, setFormData] = useState({
