@@ -5,6 +5,7 @@ import { useState } from "react";
 
 function MenuManagement() {
   const [showModal, setShowModal] = useState(false);
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -16,6 +17,11 @@ function MenuManagement() {
   } = useGetMenuItemsQuery();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -77,6 +83,7 @@ function MenuManagement() {
           onSubmit={handleFormSubmit}
           onClose={handleCloseModal}
           isSubmitting={isSubmitting}
+          onChange={handleInputChange}
         />
       )}
     </div>
