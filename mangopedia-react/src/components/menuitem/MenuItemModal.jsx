@@ -12,23 +12,35 @@ function MenuItemModal({
     e.preventDefault();
 
     if (!formData.name?.trim()) {
-      toast.error("Name is required");
-      return;
+      errors.push("Name is required");
     }
     if (!formData.category?.trim()) {
-      toast.error("Category is required");
-      return;
+      errors.push("Category is required");
     }
     if (
       !formData.price ||
       parseFloat(formData.price <= 0 || formData.price >= 1000)
     ) {
-      toast.error("Price is required and must be between 1-1000");
+      errors.push("Price is required and must be between 1-1000");
+    }
+    if (errors.length > 0) {
+      toast.error(
+        <div>
+          <strong>Please correct the following:</strong>
+          <ul className="mb-0 mt-1 ps-3">
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>,
+      );
       return;
     }
 
     onSubmit(formData);
   };
+
+  const errors = [];
 
   return (
     <>
