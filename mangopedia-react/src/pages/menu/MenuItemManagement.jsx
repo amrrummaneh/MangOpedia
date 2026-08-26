@@ -93,7 +93,14 @@ function MenuManagement() {
   };
   const handleEditMenuItem = async (item) => {
     setSelectedMenuItem(item);
-
+    setFormData({
+      name: item.name || "",
+      description: item.description || "",
+      specialTag: item.specialTag || "",
+      category: item.category || "",
+      price: item.price || "",
+      image: null,
+    });
     setShowModal(true);
   };
 
@@ -159,6 +166,7 @@ function MenuManagement() {
           onClose={handleCloseModal}
           isSubmitting={isSubmitting}
           onChange={handleInputChange}
+          isEditing={!!selectedMenuItem}
         />
       )}
     </div>
