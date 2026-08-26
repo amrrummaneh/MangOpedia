@@ -69,13 +69,30 @@ function MenuManagement() {
       if (formData.image) {
         formDataToSend.append("File", formData.image);
       }
+      if (selectedMenuItem) {
+        formDataToSend.append("Id", selectedMenuItem.id);
+      }
       let result;
-      result = await createMenuItem(formDataToSend);
-      if (result.isSuccess !== false) {
-        toast.success("Menu item created successfully!");
-        refetch();
+      if (selectedMenuItem) {
+        //edit mode
+        result = await updateMenuItem({
+          id: selectedMenuItem.id,
+          formData: formDataToSend,
+        });
+        if (result.isSuccess !== false) {
+          toast.success("Menu item updated successfully!");
+          refetch();
+        } else {
+          toast.error("Failed to updated menu item");
+        }
       } else {
-        toast.error("Failed to create menu item");
+        result = await createMenuItem(formDataToSend);
+        if (result.isSuccess !== false) {
+          toast.success("Menu item created successfully!");
+          refetch();
+        } else {
+          toast.error("Failed to create menu item");
+        }
       }
       setShowModal(false);
       resetForm();
