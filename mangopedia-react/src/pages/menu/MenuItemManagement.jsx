@@ -15,6 +15,28 @@ function MenuManagement() {
     refetch,
   } = useGetMenuItemsQuery();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    specialTag: "",
+    category: "",
+    price: "",
+    image: null,
+  });
+
+  const handleFormSubmit = (formData) => {
+    setIsSubmitting(true);
+    try {
+      //call api to create
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="container-fluid p-4 mx-3">
       <div className="row mb-4">
@@ -49,7 +71,14 @@ function MenuManagement() {
           </div>
         </div>
       </div>
-      {showModal && <MenuItemModal onClose={handleCloseModal} />}
+      {showModal && (
+        <MenuItemModal
+          formData={formData}
+          onSubmit={handleFormSubmit}
+          onClose={handleCloseModal}
+          isSubmitting={isSubmitting}
+        />
+      )}
     </div>
   );
 }
