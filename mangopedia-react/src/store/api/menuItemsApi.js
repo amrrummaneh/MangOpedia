@@ -16,7 +16,15 @@ export const menuItemsApi = baseApi.injectEndpoints({
         return [];
       },
     }),
+    createMenuItem: builder.mutation({
+      query: (formData) => ({
+        url: "/MenuItem",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["MenuItem"],
+    }),
   }),
 });
 
-export const { useGetMenuItemsQuery } = menuItemsApi;
+export const { useGetMenuItemsQuery, useCreateMenuItemMutation } = menuItemsApi;
