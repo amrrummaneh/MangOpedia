@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../../utility/constants";
 
-function MenuItemTable({ menuItems, isLoading, error }) {
+function MenuItemTable({ menuItems, isLoading, error, onDelete }) {
   if (isLoading) {
     return (
       <div className="text-center py-4">
@@ -87,6 +87,7 @@ function MenuItemTable({ menuItems, isLoading, error }) {
                       <i className="bi bi-pencil"></i>
                     </button>
                     <button
+                      onClick={onDelete}
                       className="btn btn-sm btn-outline-danger"
                       title="Delete"
                     >
