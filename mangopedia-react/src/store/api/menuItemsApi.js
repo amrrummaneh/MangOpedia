@@ -24,7 +24,29 @@ export const menuItemsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["MenuItem"],
     }),
+
+    deleteMenuItem: builder.mutation({
+      query: (id) => ({
+        url: `/MenuItem?id=${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["MenuItem"],
+    }),
+
+    updateMenuItem: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/MenuItem?id=${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["MenuItem"],
+    }),
   }),
 });
 
-export const { useGetMenuItemsQuery, useCreateMenuItemMutation } = menuItemsApi;
+export const {
+  useGetMenuItemsQuery,
+  useCreateMenuItemMutation,
+  useDeleteMenuItemMutation,
+  useUpdateMenuItemMutation,
+} = menuItemsApi;
