@@ -87,7 +87,7 @@ function MenuItemTable({ menuItems, isLoading, error, onDelete }) {
                       <i className="bi bi-pencil"></i>
                     </button>
                     <button
-                      onClick={onDelete}
+                      onClick={() => onDelete(item)}
                       className="btn btn-sm btn-outline-danger"
                       title="Delete"
                     >

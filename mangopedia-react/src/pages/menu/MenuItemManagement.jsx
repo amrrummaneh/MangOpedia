@@ -97,7 +97,7 @@ function MenuManagement() {
     });
 
     if (result.isConfirmed) {
-      // await deleteMenuItem(item.id);
+      await deleteMenuItem(item.id);
 
       Swal.fire({
         title: "Deleted!",
