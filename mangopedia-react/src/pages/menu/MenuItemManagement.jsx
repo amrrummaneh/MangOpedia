@@ -7,7 +7,7 @@ import {
   useCreateMenuItemMutation,
   useDeleteMenuItemMutation,
   useUpdateMenuItemMutation,
-} from "../../store/api/menuItemsApi";
+} from "../../store/api/menuItemApi";
 import { useState } from "react";
 
 function MenuManagement() {
