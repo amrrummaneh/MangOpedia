@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetMenuItemByIdQuery } from "../../store/api/menuItemApi";
+import { API_BASE_URL } from "../../utility/constants";
 function MenuItemDetails() {
   const { id } = useParams();
 
@@ -72,7 +73,7 @@ function MenuItemDetails() {
               </a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              NAME
+              {selectedMenuItem.name}
             </li>
           </ol>
         </nav>
@@ -84,18 +85,23 @@ function MenuItemDetails() {
               <div className="rounded-4 overflow-hidden shadow-lg border bg-body position-relative">
                 <img
                   className="img-fluid"
-                  src="https://placehold.co/500"
+                  src={`${API_BASE_URL}/${selectedMenuItem.image}`}
                   style={{
                     height: "500px",
                     width: "100%",
                     objectFit: "cover",
                   }}
+                  onError={(e) => {
+                    e.target.src = "https://placehold.co/100";
+                  }}
                 />
-                <div className="position-absolute top-0 start-0 m-3">
-                  <span className="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm fs-6">
-                    TAG
-                  </span>
-                </div>
+                {selectedMenuItem.specialTag && (
+                  <div className="position-absolute top-0 start-0 m-3">
+                    <span className="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm fs-6">
+                      {selectedMenuItem.specialTag}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -107,10 +113,12 @@ function MenuItemDetails() {
               <div className="mb-4">
                 <div className="d-flex align-items-start justify-content-between mb-3">
                   <div>
-                    <h1 className="display-6 fw-bold mb-2 text-dark">NAME</h1>
+                    <h1 className="display-6 fw-bold mb-2 text-dark">
+                      {selectedMenuItem.name}
+                    </h1>
                     <div className="d-flex align-items-center gap-3 mb-2">
                       <span className="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 fs-6">
-                        CATEGORY
+                        {selectedMenuItem.category}
                       </span>
                       <span className="text-success small fw-semibold">
                         <i className="bi bi-check-circle-fill me-1"></i>
@@ -119,7 +127,9 @@ function MenuItemDetails() {
                     </div>
                   </div>
                   <div className="text-end">
-                    <div className="h2 text-primary fw-bold mb-0">$$</div>
+                    <div className="h2 text-primary fw-bold mb-0">
+                      ${selectedMenuItem.price.toFixed(2)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -133,7 +143,7 @@ function MenuItemDetails() {
                   className="text-muted lead mb-0"
                   style={{ lineHeight: "1.6" }}
                 >
-                  DESC
+                  {selectedMenuItem.description}
                 </p>
               </div>
 
@@ -254,7 +264,9 @@ function MenuItemDetails() {
                       <div className="text-muted text-uppercase fw-semibold small mb-1">
                         Category
                       </div>
-                      <div className="fw-semibold">CATEGORY</div>
+                      <div className="fw-semibold">
+                        {selectedMenuItem.category}
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-3 col-md-6">
@@ -266,7 +278,9 @@ function MenuItemDetails() {
                       <div className="text-muted text-uppercase fw-semibold small mb-1">
                         Special Tag
                       </div>
-                      <div className="fw-semibold">TAG</div>
+                      <div className="fw-semibold">
+                        {selectedMenuItem.specialTag}
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-3 col-md-6">
@@ -278,7 +292,9 @@ function MenuItemDetails() {
                       <div className="text-muted text-uppercase fw-semibold small mb-1">
                         Price
                       </div>
-                      <div className="text-primary fw-bold">$$</div>
+                      <div className="text-primary fw-bold">
+                        ${selectedMenuItem.price.toFixed(2)}
+                      </div>
                     </div>
                   </div>
                   <div className="col-lg-3 col-md-6">
