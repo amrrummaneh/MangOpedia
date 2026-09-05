@@ -200,7 +200,7 @@ function MenuItemDetails() {
                         <div className="d-grid gap-2">
                           <button className="btn btn-primary btn-lg fw-semibold shadow-sm">
                             <i className="bi bi-cart-plus me-2"></i>
-                            Add to Cart -
+                            Add to Cart
                           </button>
 
                           <button className="btn btn-outline-primary">
@@ -215,11 +215,13 @@ function MenuItemDetails() {
                     <div className="mt-3 p-3  rounded border">
                       <div className="row">
                         <div className="col-6">
-                          <small className="text-muted">Subtotal ($$)</small>
+                          <small className="text-muted">
+                            Subtotal ({quantity} item{quantity == 1 ? "" : "s"})
+                          </small>
                         </div>
                         <div className="col-6 text-end">
                           <span className="fw-bold text-primary h5 mb-0">
-                            price * quantity
+                            ${(selectedMenuItem.price * quantity).toFixed(2)}
                           </span>
                         </div>
                       </div>
