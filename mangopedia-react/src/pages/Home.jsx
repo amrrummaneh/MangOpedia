@@ -1,9 +1,15 @@
 import { useGetMenuItemsQuery } from "../store/api/menuItemApi";
 import { API_BASE_URL, CATEGORY, ROUTES } from "../utility/constants";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { useState } from "react";
 function Home() {
+  const { id } = useParams();
+
+  const itemId = parseInt(id);
+  const isValidItemId = !isNaN(itemId) && itemId > 0;
+  console.log(id);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const {
