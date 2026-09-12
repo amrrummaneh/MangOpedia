@@ -1,8 +1,16 @@
 import { ROUTES } from "../../utility/constants";
-import { useSelector } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { logout } from "../../store/slice/authSlice";
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(ROUTES.HOME);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg  border-bottom shadow-sm">
@@ -103,7 +111,10 @@ function Header() {
                       <hr className="dropdown-divider my-2" />
                     </li>
                     <li>
-                      <button className="dropdown-item d-flex align-items-center gap-2 text-danger rounded-2">
+                      <button
+                        onClick={handleLogout}
+                        className="dropdown-item d-flex align-items-center gap-2 text-danger rounded-2"
+                      >
                         <i className="bi bi-box-arrow-right"></i>
                         <span>Logout</span>
                       </button>

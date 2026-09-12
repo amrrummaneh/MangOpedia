@@ -38,7 +38,7 @@ function Login() {
         console.log(token, user);
         toast.success("Login successful.");
         dispatch(setAuth({ user, token }));
-        //navigate(ROUTES.HOME);
+        navigate(ROUTES.HOME);
       } else {
         toast.error(result.errorMessages?.[0] || "Login failed");
       }
