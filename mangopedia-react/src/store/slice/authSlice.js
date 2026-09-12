@@ -7,15 +7,15 @@ const STORAGE_KEYS = {
 };
 
 const getInitialAuthState = () => {
-  const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-  const user = localStorage.getItem(STORAGE_KEYS.USER);
+  const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
+  const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
   //clear invalid token
 
   if (
-    !token ||
-    token === "undefined" ||
-    token === "null" ||
-    isTokenExpired(token)
+    !storedToken ||
+    storedToken === "undefined" ||
+    storedToken === "null" ||
+    isTokenExpired(storedToken)
   ) {
     localStorage.removeItem(STORAGE_KEYS.TOKEN);
     localStorage.removeItem(STORAGE_KEYS.USER);
@@ -25,4 +25,23 @@ const getInitialAuthState = () => {
       isAuthenticated: false,
     };
   }
+
+  let user = null;
+  if (storedUser && storedUser !== "undefined" && storedUser != "null") {
+    try {
+      user = JSON.parse(storedToken);
+    } catch {
+      // If user data is corrupted, extract from token
+      user = getUserInfoFromToken(token);
+      if (user) {
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+      }
+    }
+  }
+
+  return {
+    user,
+    token,
+    isAuthenticated: !!token && !!user,
+  };
 };
