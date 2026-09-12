@@ -33,7 +33,7 @@ function Login() {
     try {
       const result = await loginUser(formData).unwrap();
       if (result.isSuccess) {
-        const token = result.token;
+        const token = result.result.token;
         const user = getUserInfoFromToken(token);
         console.log(token, user);
         toast.success("Login successful.");
