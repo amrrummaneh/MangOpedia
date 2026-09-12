@@ -54,7 +54,7 @@ function Register() {
       }
       console.log(result);
     } catch (error) {
-      toast.error(error);
+      toast.error(error.data?.errorMessages?.[0] || "Registration failed");
     }
   };
 
