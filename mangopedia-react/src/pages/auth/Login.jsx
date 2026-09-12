@@ -3,9 +3,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../store/api/authApi";
 import { toast } from "react-toastify";
-
+import { setAuth } from "../../store/slice/authSlice";
+import { useDispatch } from "react-redux";
+import { getUserInfoFromToken } from "../../utility/jwtUtility";
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,8 +33,11 @@ function Login() {
     try {
       const result = await loginUser(formData).unwrap();
       if (result.isSuccess) {
+        const token = result.token;
+        const user = getUserInfoFromToken(token);
+        console.log(token, user);
         toast.success("Login successful.");
-        console.log(result);
+        dispatch(setAuth({ user, token }));
         //navigate(ROUTES.HOME);
       } else {
         toast.error(result.errorMessages?.[0] || "Login failed");
